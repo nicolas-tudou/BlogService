@@ -2,6 +2,7 @@ package main
 
 import (
 	"BlogService/config"
+	"BlogService/middlewares"
 	"BlogService/routes"
 	"log"
 
@@ -20,6 +21,12 @@ func main() {
 
 	router := gin.Default()
 
+	router.Use(
+		gin.Logger(),
+		gin.Recovery(),
+		middlewares.JWTAuth(),
+	)
+
 	routes.RegisterRoutes(router)
 
 	log.Printf("Service is running in port: %s\n", config.AppConfig.Port)
@@ -27,5 +34,4 @@ func main() {
 	if err := router.Run(":" + config.AppConfig.Port); err != nil {
 		log.Fatal("Failed to start service: %v\n", err)
 	}
-
 }

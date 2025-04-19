@@ -8,14 +8,17 @@ import (
 )
 
 type Config struct {
-	Env  string `mapstructure:"ENV"`
-	Port string `mapstructure:"APP_PORT"`
-	DB   struct {
+	Env       string `mapstructure:"ENV"`
+	Port      string `mapstructure:"APP_PORT"`
+	JWTSecret string `mapstructure:"JWTSECRET"`
+	DB        struct {
 		Host     string `mapstructure:"DB_HOST"`
 		Port     string `mapstructure:"DB_PORT"`
 		User     string `mapstructure:"DB_USER"`
 		Password string `mapstructure:"DB_PASSWORD"`
 		Name     string `mapstructure:"DB_NAME"`
+		SSLMode  string `mapstructure:"DB_SSL_MODE" default:"disable"`
+		MaxConns int    `mapstructure:"DB_MAX_CONNS" default:"10"`
 	} `mapstructure:"DB"`
 }
 
