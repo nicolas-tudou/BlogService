@@ -19,7 +19,7 @@ func GetDB() *gorm.DB {
 	once.Do(func() {
 		appConfig := config.AppConfig
 		var err error
-		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", appConfig.DB_User, appConfig.DB_Password, appConfig.DB_Host, appConfig.DB_Port, appConfig.DB_Name)
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", appConfig.DBUser, appConfig.DBPassword, appConfig.DBHost, appConfig.DBPort, appConfig.DBName)
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err != nil {
 			log.Fatal("数据库连接失败：%v, dsn: %s", err, dsn)
