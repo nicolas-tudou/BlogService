@@ -2,7 +2,7 @@ package main
 
 import (
 	"BlogService/config"
-	"BlogService/middlewares"
+	"BlogService/db"
 	"BlogService/routes"
 	"log"
 
@@ -12,6 +12,9 @@ import (
 func main() {
 
 	config.LoadConfig()
+
+	db.GetDB()
+	defer db.CloseDB()
 
 	if config.AppConfig.Env == "production" {
 		gin.SetMode(gin.ReleaseMode)
@@ -24,7 +27,7 @@ func main() {
 	router.Use(
 		gin.Logger(),
 		gin.Recovery(),
-		middlewares.JWTAuth(),
+		// middlewares.JWTAuth(),
 	)
 
 	routes.RegisterRoutes(router)

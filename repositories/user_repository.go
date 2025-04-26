@@ -21,13 +21,13 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 
 func (r *userRepository) FindAll() ([]model.User, error) {
 
-	var users []model.User
+	var user []model.User
 
-	if err := r.db.Find(&users).Error; err != nil {
+	if err := r.db.Find(&user).Error; err != nil {
 		return nil, err
 	}
 
-	return users, nil
+	return user, nil
 }
 
 func (r *userRepository) FindByID(id string) (*model.User, error) {
