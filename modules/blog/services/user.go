@@ -1,8 +1,8 @@
 package services
 
 import (
-	model "BlogService/models"
-	repository "BlogService/repositories"
+	model "BlogService/modules/blog/models"
+	repository "BlogService/modules/blog/repositories"
 )
 
 type UserService interface {

@@ -3,7 +3,7 @@ package main
 import (
 	"BlogService/config"
 	"BlogService/db"
-	"BlogService/routes"
+	"BlogService/modules/blog/routes"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -13,8 +13,8 @@ func main() {
 
 	config.LoadConfig()
 
-	db.GetDB()
-	defer db.CloseDB()
+	db.GetBlogDB()
+	defer db.CloseBlogDB()
 
 	if config.AppConfig.Env == "production" {
 		gin.SetMode(gin.ReleaseMode)
@@ -23,6 +23,10 @@ func main() {
 	}
 
 	router := gin.Default()
+
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "pong"})
+	})
 
 	router.Use(
 		gin.Logger(),

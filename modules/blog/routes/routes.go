@@ -1,10 +1,10 @@
 package routes
 
 import (
-	"BlogService/controllers"
 	"BlogService/db"
-	repository "BlogService/repositories"
-	"BlogService/services"
+	"BlogService/modules/blog/controllers"
+	repository "BlogService/modules/blog/repositories"
+	"BlogService/modules/blog/services"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -13,12 +13,8 @@ import (
 
 func RegisterRoutes(router *gin.Engine) {
 
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "pong"})
-	})
-
 	userGroup := router.Group("/user")
-	userControllers := controllers.NewUserController(services.NewUserService(repository.NewUserRepository(db.GetDB())))
+	userControllers := controllers.NewUserController(services.NewUserService(repository.NewUserRepository(db.GetBlogDB())))
 	{
 		userGroup.GET("/", userControllers.GetUsers)
 		userGroup.GET("/:id", userControllers.GetUserByID)
